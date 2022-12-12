@@ -8,9 +8,11 @@ char * render_static_file(char * fileName) {
 
 	if (file == NULL) {
 		return NULL;
-	}else {
-		printf("%s does exist \n", fileName);
 	}
+	// else {
+	// 	// printf("%s does exist \n", fileName);
+		
+	// }
 
 	fseek(file, 0, SEEK_END);
 	long fsize = ftell(file);
