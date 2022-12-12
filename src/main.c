@@ -13,6 +13,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <unistd.h>
+#include <errno.h>
 
 char *get_time()
 {
@@ -108,11 +109,18 @@ void * handle_request(void *arg)
 	return NULL;
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	// initiate HTTP_Server
 	HTTP_Server http_server;
-	init_server(&http_server, 6969);
+	int port;
+	if (argc != 2)
+	{
+		printf("%s [port-number]\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+	port = atoi(argv[1]);
+	init_server(&http_server, port);
 
 	int client_socket;
 

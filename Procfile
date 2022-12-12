@@ -1,1 +1,1 @@
-web: ./server.o
+web: ./server.o $PORT
