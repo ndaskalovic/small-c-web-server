@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include "mime.h"
 
-#define DEFAULT_MIME_TYPE "application/octet-stream"
+#define DEFAULT_MIME_TYPE "text/html"
 
 /**
  * Lowercase a string

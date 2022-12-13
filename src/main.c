@@ -160,7 +160,7 @@ void * handle_request(void *arg)
 			strcat(template, destination->value);
 		}
 		struct file_data *data = get_file(template);
-		response_data = data->data;
+		response_data = render_static_file(template);
 		sprintf(response_length, "Content-Length: %d\r\n", data->size);
 		
 	
@@ -170,12 +170,13 @@ void * handle_request(void *arg)
 
 	strcat(http_header, response_length);
 	strcat(http_header, "Connection: close\r\n");
+	strcat(http_header, "Content-Type: ");
 	strcat(http_header, mime_type);
 	// strcat(http_header, response_length);
-	// strcat(http_header, "\r\n\r\n");
+	strcat(http_header, "\r\n\r\n");
 	strcat(http_header, response_data);
 	// strcat(http_header, "\r\n\r\n");
-	printf("RESPONSE:\n%s", http_header);
+	printf("RESPONSE: %s\n", http_header);
 
 	send(client_socket, http_header, sizeof(http_header), 0);
 	close(client_socket);
