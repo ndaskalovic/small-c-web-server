@@ -14,6 +14,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
+#include "mime.h"
 
 char *get_time()
 {
@@ -76,10 +77,17 @@ void * handle_request(void *arg)
 	free(time);
 
 	char template[100] = "";
+	char *mime_type;
+	mime_type = mime_type_get(urlRoute);
 	if (strstr(urlRoute, "/static/") != NULL)
 	{
-		// strcat(template, urlRoute+1);
-		strcat(template, "static/index.css");
+		
+		// copy the path of the requested file to the path to render
+
+		char *sub = malloc(50);
+		strncpy(sub, urlRoute + 1, 50);
+		strcat(template, sub);
+		free(sub);
 	}
 	else
 	{
@@ -98,10 +106,11 @@ void * handle_request(void *arg)
 
 	char *response_data = render_static_file(template);
 
-	char http_header[4096] = "HTTP/1.1 200 OK\r\n\r\n";
-
+	char http_header[4096] = "HTTP/1.1 200 OK\r\n";
+	strcat(http_header, mime_type);
 	strcat(http_header, response_data);
 	strcat(http_header, "\r\n\r\n");
+	printf("RESPONSE:\n%s", http_header);
 
 	send(client_socket, http_header, sizeof(http_header), 0);
 	close(client_socket);
