@@ -1,3 +1,6 @@
 src/*.o
 *.o
 .cache/
+.DS_Store
+.vscode
+*.db

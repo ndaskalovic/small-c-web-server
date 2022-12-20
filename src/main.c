@@ -136,6 +136,9 @@ void * handle_request(void *arg)
 		struct file_data *f = get_file(sub);
 		response_data = f->data;
 
+		// could just do this instead of getting a substring
+		// urlRoute++;
+
 		// printf("file data %s \n %s\n", f->size, f->data);
 		sprintf(response_length, "Content-Length: %d\r\n", f->size);
 		length = f->size;
