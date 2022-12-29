@@ -7,8 +7,36 @@ body {
   padding:0 10px;
 }
 
-h1,h2,h3{
-  line-height:1.2
+a{
+  text-decoration: none;
+  color: rgb(37, 99, 235);
 }
+
+.footer{
+  display: flex;
+  justify-content: center;
+}
+
+.icon{
+  margin: 10px;
+}
+
+.link-underline {
+		border-bottom-width: 0;
+		background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+		background-size: 0 2px;
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		transition: background-size .2s ease-in-out;
+	}
+
+	.link-underline-black {
+		background-image: linear-gradient(transparent, transparent), linear-gradient(rgb(37, 99, 235), rgb(37, 99, 235))
+	}
+
+	.link-underline:hover {
+		background-size: 100% 2px;
+		background-position: 0 100%
+	}
 
 
