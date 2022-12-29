@@ -179,7 +179,7 @@ void * handle_request(void *arg)
 	strcat(http_header, "\r\n\r\n");
 	strcat(http_header, response_data);
 	// strcat(http_header, "\r\n\r\n");
-	printf("RESPONSE: %s\n", http_header);
+	// printf("RESPONSE: %s\n", http_header);
 
 	send(client_socket, http_header, sizeof(http_header), 0);
 	close(client_socket);
@@ -204,6 +204,7 @@ int main(int argc, char **argv)
 	// registering Routes
 	struct Route *route = initRoute("/", "index.html");
 	addRoute(route, "/about", "about.html");
+	addRoute(route, "/dl", "dl.html");
 
 	printf("\n====================================\n");
 	printf("=========AVAILABLE ROUTES========\n");
