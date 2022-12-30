@@ -1,15 +1,23 @@
+:root{
+	--highlight-blue: rgb(47, 128, 227);
+	--text-grey: rgb(68, 68, 68);
+}
+
 body {
+	border-bottom: var(--text-grey) 2px solid;
   margin:40px auto;
   max-width:650px;
   line-height:1.6;
   font-size:18px;
-  color:#444;
+  color: var(--text-grey);
   padding:0 10px;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  /* font-size: 17px; */
 }
 
 a{
   text-decoration: none;
-  color: rgb(37, 99, 235);
+  color: var(--highlight-blue);
 }
 
 .footer{
@@ -27,11 +35,11 @@ a{
 		background-size: 0 2px;
 		background-position: 0 100%;
 		background-repeat: no-repeat;
-		transition: background-size .2s ease-in-out;
+		transition: background-size .1s ease-in-out;
 	}
 
 	.link-underline-black {
-		background-image: linear-gradient(transparent, transparent), linear-gradient(rgb(37, 99, 235), rgb(37, 99, 235))
+		background-image: linear-gradient(transparent, transparent), linear-gradient(var(--highlight-blue), var(--highlight-blue))
 	}
 
 	.link-underline:hover {
