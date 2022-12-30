@@ -125,7 +125,7 @@ void * handle_request(void *arg)
 	char *response_data;
 	char response_length[100];
 	int length = 0;
-	char http_header[4096] = "HTTP/1.1 200 OK\r\n";
+	// char http_header[262144] = "HTTP/1.1 200 OK\r\n";
 	if (strstr(urlRoute, "/static/") != NULL)
 	{
 		// copy the path of the requested file to the path to render
@@ -141,7 +141,7 @@ void * handle_request(void *arg)
 
 		// printf("file data %s \n %s\n", f->size, f->data);
 		sprintf(response_length, "Content-Length: %d\r\n", f->size);
-		length = f->size;
+
 		// response_length = f->size;
 		send_response(client_socket, "HTTP/1.1 200 OK", mime_type, response_data, f->size);
 		free(sub);
@@ -163,26 +163,29 @@ void * handle_request(void *arg)
 			strcat(template, destination->value);
 		}
 		struct file_data *data = get_file(template);
-		response_data = render_static_file(template);
-		sprintf(response_length, "Content-Length: %d\r\n", data->size);
-		
-	
+		// response_data = render_static_file(template);
+		struct file_data *f = get_file(template);
+		// sprintf(response_length, "Content-Length: %d\r\n", data->size);
+		send_response(client_socket, "HTTP/1.1 200 OK", mime_type, f->data, f->size);
+
 		file_free(data);
-		
-	}
+		file_free(f);
+		close(client_socket);
+		return NULL;
+		}
 
-	strcat(http_header, response_length);
-	strcat(http_header, "Connection: close\r\n");
-	strcat(http_header, "Content-Type: ");
-	strcat(http_header, mime_type);
 	// strcat(http_header, response_length);
-	strcat(http_header, "\r\n\r\n");
-	strcat(http_header, response_data);
+	// strcat(http_header, "Connection: close\r\n");
+	// strcat(http_header, "Content-Type: ");
+	// strcat(http_header, mime_type);
+	// // strcat(http_header, response_length);
 	// strcat(http_header, "\r\n\r\n");
-	// printf("RESPONSE: %s\n", http_header);
+	// strcat(http_header, response_data);
+	// // strcat(http_header, "\r\n\r\n");
+	// // printf("RESPONSE: %s\n", http_header);
 
-	send(client_socket, http_header, sizeof(http_header), 0);
-	close(client_socket);
+	// send(client_socket, http_header, sizeof(http_header), 0);
+	// close(client_socket);
 	return NULL;
 }
 
